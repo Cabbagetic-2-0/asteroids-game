@@ -20,8 +20,8 @@
             background-color: var(--bg-color);
             color: var(--retro-white);
             font-family: 'Press Start 2P', cursive;
-            overflow: hidden; /* Prevent scrolling */
-            touch-action: none; /* Prevent mobile zoom/scroll */
+            overflow: hidden;
+            touch-action: none;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -42,10 +42,9 @@
             display: block;
             width: 100%;
             height: 100%;
-            image-rendering: pixelated; /* Crisp edges for 8-bit look */
+            image-rendering: pixelated;
         }
 
-        /* CRT Scanline Effect */
         .scanlines {
             position: absolute;
             top: 0;
@@ -64,7 +63,6 @@
             z-index: 10;
         }
 
-        /* UI Overlay */
         #ui-layer {
             position: absolute;
             top: 0;
@@ -81,9 +79,15 @@
         .hud-top {
             display: flex;
             justify-content: space-between;
-            padding: 20px;
-            font-size: 16px;
+            align-items: center;
+            padding: 15px;
+            font-size: 12px;
             text-shadow: 2px 2px 0 #000;
+        }
+
+        .hud-center {
+            display: flex;
+            gap: 20px;
         }
 
         #start-screen, #game-over-screen {
@@ -103,7 +107,7 @@
 
         h1 {
             color: var(--retro-white);
-            font-size: 40px;
+            font-size: 32px;
             margin-bottom: 20px;
             text-align: center;
             line-height: 1.5;
@@ -111,73 +115,68 @@
         }
 
         p {
-            font-size: 14px;
+            font-size: 12px;
             line-height: 2;
             text-align: center;
             color: #aaa;
             margin-bottom: 30px;
         }
 
-        button.retro-btn {
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        button.retro-btn, a.retro-btn {
             background: var(--retro-accent);
             color: #fff;
             border: 4px solid #fff;
-            padding: 15px 30px;
+            padding: 12px 24px;
             font-family: 'Press Start 2P', cursive;
-            font-size: 16px;
+            font-size: 14px;
             cursor: pointer;
             text-transform: uppercase;
+            text-decoration: none;
+            text-align: center;
             box-shadow: 4px 4px 0 #000;
-            transition: transform 0.1s;
+            display: inline-block;
+            pointer-events: auto;
         }
 
-        button.retro-btn:active {
+        button.retro-btn:active, a.retro-btn:active {
             transform: translate(2px, 2px);
             box-shadow: 2px 2px 0 #000;
         }
 
-        /* Mobile Controls */
+        .home-btn-small {
+            background: #444 !important;
+            font-size: 10px !important;
+            padding: 8px 12px !important;
+            border-width: 2px !important;
+        }
+
         #mobile-controls {
             position: absolute;
             bottom: 20px;
             left: 0;
             width: 100%;
             height: 180px;
-            pointer-events: none; /* Let touches pass through to buttons */
-            display: none; /* Hidden on desktop by default, shown via JS if touch detected */
+            pointer-events: none;
+            display: none;
             z-index: 25;
             padding: 0 20px;
             box-sizing: border-box;
         }
 
-        .control-group {
-            pointer-events: auto;
-        }
-
-        .d-pad {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            width: 150px;
-            height: 150px;
-        }
-
-        .action-pad {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            width: 100px;
-            height: 100px;
-            display: flex;
-            align-items: flex-end;
-            justify-content: flex-end;
-        }
+        .control-group { pointer-events: auto; }
+        .d-pad { position: absolute; bottom: 20px; left: 20px; width: 150px; height: 150px; }
+        .action-pad { position: absolute; bottom: 20px; right: 20px; width: 100px; height: 100px; display: flex; align-items: flex-end; justify-content: flex-end; }
 
         .touch-btn {
             background: rgba(255, 255, 255, 0.15);
             border: 2px solid rgba(255, 255, 255, 0.3);
             position: absolute;
-            border-radius: 50%; /* Make them slightly rounded squares? No, prompt says squares. Let's do rounded rects for ergonomics */
             border-radius: 8px;
             backdrop-filter: blur(2px);
             display: flex;
@@ -186,32 +185,20 @@
             color: rgba(255, 255, 255, 0.8);
             font-size: 20px;
             user-select: none;
-            transition: background 0.1s;
         }
 
-        .touch-btn:active, .touch-btn.active {
-            background: rgba(255, 0, 85, 0.4);
-            border-color: var(--retro-accent);
-        }
+        .touch-btn:active { background: rgba(255, 0, 85, 0.4); border-color: var(--retro-accent); }
 
-        /* D-Pad Layout */
         #btn-left { bottom: 50px; left: 0; width: 50px; height: 50px; }
         #btn-right { bottom: 50px; left: 100px; width: 50px; height: 50px; }
         #btn-thrust { bottom: 100px; left: 50px; width: 50px; height: 50px; }
-        
-        /* Action Layout */
-        #btn-fire { 
-            width: 80px; 
-            height: 80px; 
-            background: rgba(255, 0, 85, 0.2);
-            border-color: var(--retro-accent);
-            border-radius: 50%;
-        }
+        #btn-fire { width: 80px; height: 80px; background: rgba(255, 0, 85, 0.2); border-color: var(--retro-accent); border-radius: 50%; }
 
         .hidden { display: none !important; }
 
-        @media (min-width: 1024px) {
-            h1 { font-size: 60px; }
+        @media (min-width: 768px) {
+            h1 { font-size: 48px; }
+            .hud-top { font-size: 16px; padding: 20px; }
         }
     </style>
 </head>
@@ -219,13 +206,15 @@
 
 <div id="game-container">
     <div class="scanlines"></div>
-    
     <canvas id="gameCanvas"></canvas>
 
     <div id="ui-layer">
         <div class="hud-top">
             <div id="score-display">SCORE: 0</div>
-            <div id="lives-display">LIVES: 3</div>
+            <div class="hud-center">
+                <a href="#" class="retro-btn home-btn-small main-site-link">EXIT</a>
+                <div id="lives-display">LIVES: 3</div>
+            </div>
         </div>
 
         <div id="mobile-controls">
@@ -240,25 +229,37 @@
         </div>
     </div>
 
-    <!-- Start Screen -->
     <div id="start-screen">
         <h1>ASTEROID<br>BLASTER</h1>
-        <p>ARROW KEYS or WASD to Move<br>SPACE to Shoot</p>
-        <button class="retro-btn" id="start-btn">INSERT COIN</button>
+        <p>ARROWS to Move • SPACE to Shoot</p>
+        <div class="btn-group">
+            <button class="retro-btn" id="start-btn">INSERT COIN</button>
+            <a href="#" class="retro-btn home-btn-small main-site-link">RETURN TO WEBSITE</a>
+        </div>
     </div>
 
-    <!-- Game Over Screen -->
     <div id="game-over-screen" class="hidden">
         <h1>GAME OVER</h1>
         <p id="final-score">SCORE: 0</p>
-        <button class="retro-btn" id="restart-btn">TRY AGAIN</button>
+        <div class="btn-group">
+            <button class="retro-btn" id="restart-btn">PLAY AGAIN</button>
+            <a href="#" class="retro-btn home-btn-small main-site-link">GO HOME</a>
+        </div>
     </div>
 </div>
 
 <script>
 /**
- * Game Configuration & State
+ * WEBSITE CONFIGURATION
+ * Replace the URL below with your actual main website URL
  */
+const MAIN_WEBSITE_URL = "https://cabbagetic-2-0.github.io/.github/"; 
+
+// Apply URL to all links
+document.querySelectorAll('.main-site-link').forEach(link => {
+    link.href = MAIN_WEBSITE_URL;
+});
+
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const uiScore = document.getElementById('score-display');
@@ -268,21 +269,17 @@ const gameOverScreen = document.getElementById('game-over-screen');
 const finalScoreDisplay = document.getElementById('final-score');
 const mobileControls = document.getElementById('mobile-controls');
 
-// Game Constants
 const FPS = 60;
-const FRICTION = 0.98; // Ship glide
-const SHIP_THRUST = 0.5; // Acceleration
-const TURN_SPEED = 360; // Degrees per second
-const SHIP_SIZE = 20; // Radius in pixels
-const BULLET_SPEED = 600; // Pixels per second
-const BULLET_DIST = 0.4; // Max distance as fraction of screen width
-const ASTEROID_NUM = 5; // Starting asteroids
-const ASTEROID_SIZE = 50; // Starting size
-const ASTEROID_SPD = 100; // Max starting speed
-const ASTEROID_VERTICES = 4; // Square
-const SHOW_BOUNDING = false; // Debug
+const FRICTION = 0.98;
+const SHIP_THRUST = 0.5;
+const TURN_SPEED = 360;
+const SHIP_SIZE = 20;
+const BULLET_SPEED = 600;
+const BULLET_DIST = 0.4;
+const ASTEROID_NUM = 5;
+const ASTEROID_SIZE = 50;
+const ASTEROID_SPD = 100;
 
-// Game State
 let ship;
 let asteroids = [];
 let bullets = [];
@@ -290,29 +287,12 @@ let particles = [];
 let score = 0;
 let lives = 3;
 let level = 0;
-let textAlpha = 1.0;
-let textAlphaDirection = -1;
 let lastTime = 0;
 let isGameOver = false;
 let isPlaying = false;
 
-// Input State
-const keys = {
-    ArrowUp: false, ArrowLeft: false, ArrowRight: false,
-    w: false, a: false, d: false,
-    Space: false
-};
+const input = { thrust: false, left: false, right: false, shoot: false };
 
-const input = {
-    thrust: false,
-    left: false,
-    right: false,
-    shoot: false
-};
-
-/**
- * Setup & Event Listeners
- */
 function resize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -320,12 +300,10 @@ function resize() {
 window.addEventListener('resize', resize);
 resize();
 
-// Check for touch capability
 if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
     mobileControls.style.display = 'block';
 }
 
-// Keyboard Listeners
 document.addEventListener('keydown', (e) => {
     if(e.code === 'Space') input.shoot = true;
     if(e.code === 'ArrowUp' || e.key === 'w') input.thrust = true;
@@ -340,14 +318,10 @@ document.addEventListener('keyup', (e) => {
     if(e.code === 'ArrowRight' || e.key === 'd') input.right = false;
 });
 
-// Touch Listeners
 const setupTouchBtn = (id, key) => {
     const btn = document.getElementById(id);
-    btn.addEventListener('touchstart', (e) => { e.preventDefault(); input[key] = true; btn.classList.add('active'); });
-    btn.addEventListener('touchend', (e) => { e.preventDefault(); input[key] = false; btn.classList.remove('active'); });
-    btn.addEventListener('mousedown', (e) => { e.preventDefault(); input[key] = true; btn.classList.add('active'); });
-    btn.addEventListener('mouseup', (e) => { e.preventDefault(); input[key] = false; btn.classList.remove('active'); });
-    btn.addEventListener('mouseleave', (e) => { input[key] = false; btn.classList.remove('active'); });
+    btn.addEventListener('touchstart', (e) => { e.preventDefault(); input[key] = true; });
+    btn.addEventListener('touchend', (e) => { e.preventDefault(); input[key] = false; });
 };
 
 setupTouchBtn('btn-thrust', 'thrust');
@@ -358,119 +332,59 @@ setupTouchBtn('btn-fire', 'shoot');
 document.getElementById('start-btn').addEventListener('click', startGame);
 document.getElementById('restart-btn').addEventListener('click', startGame);
 
-/**
- * Game Objects
- */
-
 class Ship {
     constructor() {
         this.x = canvas.width / 2;
         this.y = canvas.height / 2;
-        this.a = 90 / 180 * Math.PI; // Angle (convert to radians), point up
+        this.a = 90 / 180 * Math.PI;
         this.r = SHIP_SIZE;
-        this.blinkNum = 0;
-        this.blinkTime = 0.1;
         this.canShoot = true;
         this.dead = false;
-        this.explodeTime = 0;
         this.thrusting = false;
         this.thrust = { x: 0, y: 0 };
-        this.rot = 0;
     }
-
     update(dt) {
         if (this.dead) return;
-
-        // Rotation
-        if (input.left) this.rot = TURN_SPEED / 180 * Math.PI * dt;
-        else if (input.right) this.rot = -TURN_SPEED / 180 * Math.PI * dt;
-        else this.rot = 0;
-        this.a += this.rot;
-
-        // Thrust
+        if (input.left) this.a += (TURN_SPEED / 180 * Math.PI * dt);
+        if (input.right) this.a -= (TURN_SPEED / 180 * Math.PI * dt);
         if (input.thrust) {
             this.thrusting = true;
-            this.thrust.x += SHIP_THRUST * Math.cos(this.a) * dt * 60; // Normalize to 60fps scale
+            this.thrust.x += SHIP_THRUST * Math.cos(this.a) * dt * 60;
             this.thrust.y -= SHIP_THRUST * Math.sin(this.a) * dt * 60;
-            
-            // Thrust particles
-            if (Math.random() < 0.5) {
-                createParticles(
-                    this.x - this.r * Math.cos(this.a), 
-                    this.y + this.r * Math.sin(this.a), 
-                    3, '#ffaa00'
-                );
-            }
+            if (Math.random() < 0.4) createParticles(this.x - this.r * Math.cos(this.a), this.y + this.r * Math.sin(this.a), 2, '#ffaa00');
         } else {
             this.thrusting = false;
             this.thrust.x *= FRICTION;
             this.thrust.y *= FRICTION;
         }
-
-        // Apply physics
         this.x += this.thrust.x;
         this.y += this.thrust.y;
-
-        // Screen wrap
         if (this.x < 0 - this.r) this.x = canvas.width + this.r;
         else if (this.x > canvas.width + this.r) this.x = 0 - this.r;
         if (this.y < 0 - this.r) this.y = canvas.height + this.r;
         else if (this.y > canvas.height + this.r) this.y = 0 - this.r;
-
-        // Shooting
         if (input.shoot && this.canShoot) {
-            shootBullet();
+            bullets.push(new Bullet(this.x + 4/3 * this.r * Math.cos(this.a), this.y - 4/3 * this.r * Math.sin(this.a), this.a));
             this.canShoot = false;
-            // Simple cooldown
-            setTimeout(() => this.canShoot = true, 200);
+            setTimeout(() => this.canShoot = true, 250);
         }
     }
-
     draw() {
         if (this.dead) return;
-
         ctx.strokeStyle = 'white';
         ctx.lineWidth = 2;
         ctx.beginPath();
-        
-        // Nose of the ship
-        ctx.moveTo(
-            this.x + 4/3 * this.r * Math.cos(this.a),
-            this.y - 4/3 * this.r * Math.sin(this.a)
-        );
-        // Rear left
-        ctx.lineTo(
-            this.x - this.r * (2/3 * Math.cos(this.a) + Math.sin(this.a)),
-            this.y + this.r * (2/3 * Math.sin(this.a) - Math.cos(this.a))
-        );
-        // Rear right
-        ctx.lineTo(
-            this.x - this.r * (2/3 * Math.cos(this.a) - Math.sin(this.a)),
-            this.y + this.r * (2/3 * Math.sin(this.a) + Math.cos(this.a))
-        );
+        ctx.moveTo(this.x + 4/3 * this.r * Math.cos(this.a), this.y - 4/3 * this.r * Math.sin(this.a));
+        ctx.lineTo(this.x - this.r * (2/3 * Math.cos(this.a) + Math.sin(this.a)), this.y + this.r * (2/3 * Math.sin(this.a) - Math.cos(this.a)));
+        ctx.lineTo(this.x - this.r * (2/3 * Math.cos(this.a) - Math.sin(this.a)), this.y + this.r * (2/3 * Math.sin(this.a) + Math.cos(this.a)));
         ctx.closePath();
         ctx.stroke();
-
-        // 8-bit fill
-        ctx.fillStyle = '#000';
-        ctx.fill();
-
-        // Thrust flame (Triangle)
         if (this.thrusting) {
             ctx.strokeStyle = '#ff0055';
             ctx.beginPath();
-            ctx.moveTo(
-                this.x - this.r * (2/3 * Math.cos(this.a) + 0.5 * Math.sin(this.a)),
-                this.y + this.r * (2/3 * Math.sin(this.a) - 0.5 * Math.cos(this.a))
-            );
-            ctx.lineTo(
-                this.x - this.r * 5/3 * Math.cos(this.a),
-                this.y + this.r * 5/3 * Math.sin(this.a)
-            );
-            ctx.lineTo(
-                this.x - this.r * (2/3 * Math.cos(this.a) - 0.5 * Math.sin(this.a)),
-                this.y + this.r * (2/3 * Math.sin(this.a) + 0.5 * Math.cos(this.a))
-            );
+            ctx.moveTo(this.x - this.r * (2/3 * Math.cos(this.a) + 0.5 * Math.sin(this.a)), this.y + this.r * (2/3 * Math.sin(this.a) - 0.5 * Math.cos(this.a)));
+            ctx.lineTo(this.x - this.r * 5/3 * Math.cos(this.a), this.y + this.r * 5/3 * Math.sin(this.a));
+            ctx.lineTo(this.x - this.r * (2/3 * Math.cos(this.a) - 0.5 * Math.sin(this.a)), this.y + this.r * (2/3 * Math.sin(this.a) + 0.5 * Math.cos(this.a)));
             ctx.stroke();
         }
     }
@@ -478,70 +392,44 @@ class Ship {
 
 class Asteroid {
     constructor(x, y, r) {
-        this.x = x;
-        this.y = y;
+        this.x = x; this.y = y;
         this.r = r || Math.ceil(Math.random() * ASTEROID_SIZE + ASTEROID_SIZE / 2);
-        this.a = Math.random() * Math.PI * 2; // Angle of movement
         this.xv = Math.random() * ASTEROID_SPD * (Math.random() < 0.5 ? 1 : -1) / FPS;
         this.yv = Math.random() * ASTEROID_SPD * (Math.random() < 0.5 ? 1 : -1) / FPS;
         this.rot = Math.random() * Math.PI * 2;
-        this.rotSpeed = Math.random() * 2; // Rotation visual
     }
-
     update() {
-        this.x += this.xv;
-        this.y += this.yv;
-        this.rot += 0.01;
-
-        // Wrap
+        this.x += this.xv; this.y += this.yv; this.rot += 0.01;
         if (this.x < 0 - this.r) this.x = canvas.width + this.r;
         else if (this.x > canvas.width + this.r) this.x = 0 - this.r;
         if (this.y < 0 - this.r) this.y = canvas.height + this.r;
         else if (this.y > canvas.height + this.r) this.y = 0 - this.r;
     }
-
     draw() {
         ctx.fillStyle = '#fff';
         ctx.save();
         ctx.translate(this.x, this.y);
         ctx.rotate(this.rot);
-        // Draw Square as requested
-        const s = this.r;
-        ctx.fillRect(-s/2, -s/2, s, s);
-        // Add a small black inner square for style
+        ctx.fillRect(-this.r/2, -this.r/2, this.r, this.r);
         ctx.fillStyle = '#000';
-        ctx.fillRect(-s/4, -s/4, s/2, s/2);
+        ctx.fillRect(-this.r/4, -this.r/4, this.r/2, this.r/2);
         ctx.restore();
     }
 }
 
 class Bullet {
     constructor(x, y, angle) {
-        this.x = x;
-        this.y = y;
+        this.x = x; this.y = y;
         this.xv = BULLET_SPEED * Math.cos(angle) / FPS;
         this.yv = -BULLET_SPEED * Math.sin(angle) / FPS;
         this.dist = 0;
         this.active = true;
     }
-
     update() {
-        this.x += this.xv;
-        this.y += this.yv;
-        
-        // Calculate distance traveled to expire bullet
-        this.dist += Math.sqrt(Math.pow(this.xv, 2) + Math.pow(this.yv, 2));
-
-        if (this.dist > canvas.width * BULLET_DIST) {
-            this.active = false;
-        }
-
-        // Wrap bullets? Standard asteroids wraps bullets, but let's kill them at edges for simpler gameplay logic
-        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
-            this.active = false;
-        }
+        this.x += this.xv; this.y += this.yv;
+        this.dist += Math.sqrt(this.xv*this.xv + this.yv*this.yv);
+        if (this.dist > canvas.width * BULLET_DIST) this.active = false;
     }
-
     draw() {
         ctx.fillStyle = '#ff0055';
         ctx.fillRect(this.x - 2, this.y - 2, 4, 4);
@@ -550,204 +438,90 @@ class Bullet {
 
 class Particle {
     constructor(x, y, color) {
-        this.x = x;
-        this.y = y;
+        this.x = x; this.y = y;
         this.color = color || 'white';
         this.size = Math.random() * 3 + 1;
         this.xv = (Math.random() - 0.5) * 5;
         this.yv = (Math.random() - 0.5) * 5;
-        this.life = 1.0; // Opacity/Life
-        this.decay = Math.random() * 0.03 + 0.01;
+        this.life = 1.0;
+        this.decay = 0.02;
     }
-
-    update() {
-        this.x += this.xv;
-        this.y += this.yv;
-        this.life -= this.decay;
-    }
-
-    draw() {
-        ctx.globalAlpha = Math.max(0, this.life);
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x, this.y, this.size, this.size);
-        ctx.globalAlpha = 1.0;
-    }
+    update() { this.x += this.xv; this.y += this.yv; this.life -= this.decay; }
+    draw() { ctx.globalAlpha = Math.max(0, this.life); ctx.fillStyle = this.color; ctx.fillRect(this.x, this.y, this.size, this.size); ctx.globalAlpha = 1.0; }
 }
-
-/**
- * Game Logic Functions
- */
 
 function createAsteroids() {
     asteroids = [];
-    let x, y;
     for (let i = 0; i < ASTEROID_NUM + level; i++) {
-        // Don't spawn on ship
+        let x, y;
         do {
-            x = Math.floor(Math.random() * canvas.width);
-            y = Math.floor(Math.random() * canvas.height);
+            x = Math.random() * canvas.width;
+            y = Math.random() * canvas.height;
         } while (distBetweenPoints(ship.x, ship.y, x, y) < ASTEROID_SIZE * 2 + ship.r);
         asteroids.push(new Asteroid(x, y));
     }
 }
 
-function shootBullet() {
-    // Fire from nose
-    bullets.push(new Bullet(
-        ship.x + 4/3 * ship.r * Math.cos(ship.a),
-        ship.y - 4/3 * ship.r * Math.sin(ship.a),
-        ship.a
-    ));
-}
-
 function createParticles(x, y, amount, color) {
-    for (let i = 0; i < amount; i++) {
-        particles.push(new Particle(x, y, color));
-    }
+    for (let i = 0; i < amount; i++) particles.push(new Particle(x, y, color));
 }
 
-function distBetweenPoints(x1, y1, x2, y2) {
-    return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-}
-
-function resetGame() {
-    score = 0;
-    lives = 3;
-    level = 0;
-    uiScore.innerText = `SCORE: ${score}`;
-    uiLives.innerText = `LIVES: ${lives}`;
-    ship = new Ship();
-    createAsteroids();
-}
-
-function resetLevel() {
-    ship = new Ship();
-    // Keep asteroids where they are but maybe push them away if too close?
-    // For simplicity, just respawn ship safe center
-    ship.x = canvas.width / 2;
-    ship.y = canvas.height / 2;
-    ship.thrust.x = 0;
-    ship.thrust.y = 0;
-}
+function distBetweenPoints(x1, y1, x2, y2) { return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)); }
 
 function startGame() {
     startScreen.classList.add('hidden');
     gameOverScreen.classList.add('hidden');
     isPlaying = true;
-    isGameOver = false;
-    resetGame();
+    score = 0; lives = 3; level = 0;
+    uiScore.innerText = `SCORE: ${score}`;
+    uiLives.innerText = `LIVES: ${lives}`;
+    ship = new Ship();
+    createAsteroids();
     gameLoop(0);
 }
 
-function gameOver() {
-    isPlaying = false;
-    isGameOver = true;
-    finalScoreDisplay.innerText = `FINAL SCORE: ${score}`;
-    gameOverScreen.classList.remove('hidden');
-}
-
-function hitAsteroid(index) {
-    const a = asteroids[index];
-    const x = a.x;
-    const y = a.y;
-    const r = a.r;
-
-    // Split logic
-    if (r > ASTEROID_SIZE / 2) {
-        asteroids.push(new Asteroid(x, y, r / 2));
-        asteroids.push(new Asteroid(x, y, r / 2));
-        score += 50;
-    } else if (r > ASTEROID_SIZE / 4) {
-        asteroids.push(new Asteroid(x, y, r / 2));
-        asteroids.push(new Asteroid(x, y, r / 2));
-        score += 100;
-    } else {
-        score += 200;
-    }
-
-    createParticles(x, y, 10);
-    asteroids.splice(index, 1);
-    uiScore.innerText = `SCORE: ${score}`;
-
-    // Level clear?
-    if (asteroids.length === 0) {
-        level++;
-        createAsteroids();
-    }
-}
-
 function killShip() {
-    createParticles(ship.x, ship.y, 30, 'red');
+    createParticles(ship.x, ship.y, 20, 'red');
     lives--;
     uiLives.innerText = `LIVES: ${lives}`;
-    
-    if (lives <= 0) {
-        gameOver();
-    } else {
-        resetLevel();
-    }
+    if (lives <= 0) { isPlaying = false; finalScoreDisplay.innerText = `SCORE: ${score}`; gameOverScreen.classList.remove('hidden'); }
+    else { ship = new Ship(); }
 }
 
-/**
- * Main Loop
- */
+function hitAsteroid(idx) {
+    let a = asteroids[idx];
+    if (a.r > ASTEROID_SIZE / 2) {
+        asteroids.push(new Asteroid(a.x, a.y, a.r/2));
+        asteroids.push(new Asteroid(a.x, a.y, a.r/2));
+        score += 50;
+    } else { score += 100; }
+    createParticles(a.x, a.y, 8);
+    asteroids.splice(idx, 1);
+    uiScore.innerText = `SCORE: ${score}`;
+    if (asteroids.length === 0) { level++; createAsteroids(); }
+}
+
 function gameLoop(time) {
     if (!isPlaying) return;
-
-    // Calculate Delta Time
     const dt = (time - lastTime) / 1000;
     lastTime = time;
-
-    // Clear Canvas
     ctx.fillStyle = '#000';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Update & Draw Asteroids
-    for (let i = asteroids.length - 1; i >= 0; i--) {
-        asteroids[i].update();
-        asteroids[i].draw();
-    }
+    asteroids.forEach(a => { a.update(); a.draw(); });
+    ship.update(dt);
+    ship.draw();
 
-    // Update & Draw Ship
-    if (!ship.dead) {
-        ship.update(dt);
-        ship.draw();
-        
-        // Check Collisions with Asteroids
-        for (let i = asteroids.length - 1; i >= 0; i--) {
-            // Simple bounding box/circle approximation
-            // Since asteroids are squares, let's treat them as circles for smooth hitboxes
-            // or we check box overlap
-            let a = asteroids[i];
-            if (distBetweenPoints(ship.x, ship.y, a.x, a.y) < ship.r + a.r) {
-                killShip();
-                hitAsteroid(i); // Destroy the rock that killed us
-                break;
-            }
-        }
-    }
+    asteroids.forEach((a, i) => {
+        if (distBetweenPoints(ship.x, ship.y, a.x, a.y) < ship.r + a.r/2) { killShip(); hitAsteroid(i); }
+    });
 
-    // Update & Draw Bullets
     for (let i = bullets.length - 1; i >= 0; i--) {
         bullets[i].update();
         bullets[i].draw();
-
-        if (!bullets[i].active) {
-            bullets.splice(i, 1);
-            continue;
-        }
-
-        // Check Bullet Hits
+        if (!bullets[i].active) { bullets.splice(i, 1); continue; }
         for (let j = asteroids.length - 1; j >= 0; j--) {
-            let a = asteroids[j];
-            let b = bullets[i];
-            // Square hit detection
-            // a.x is center, size is a.r (half-width actually based on my draw code)
-            // My draw code uses fillRect(-s/2, -s/2, s, s) where s = r.
-            // So r is actually the full width/height of the square.
-            
-            // Let's use circle distance for smoother gameplay feel, square hitbox can be janky when rotating
-            if (distBetweenPoints(b.x, b.y, a.x, a.y) < a.r / 1.5) { // 1.5 factor makes hitbox tighter
+            if (distBetweenPoints(bullets[i].x, bullets[i].y, asteroids[j].x, asteroids[j].y) < asteroids[j].r/2) {
                 hitAsteroid(j);
                 bullets.splice(i, 1);
                 break;
@@ -755,23 +529,14 @@ function gameLoop(time) {
         }
     }
 
-    // Update & Draw Particles
     for (let i = particles.length - 1; i >= 0; i--) {
         particles[i].update();
-        if (particles[i].life <= 0) {
-            particles.splice(i, 1);
-        } else {
-            particles[i].draw();
-        }
+        if (particles[i].life <= 0) particles.splice(i, 1);
+        else particles[i].draw();
     }
-
     requestAnimationFrame(gameLoop);
 }
-
-// Initial Draw for background
-ctx.fillStyle = '#000';
-ctx.fillRect(0, 0, canvas.width, canvas.height);
-
 </script>
 </body>
 </html>
+
